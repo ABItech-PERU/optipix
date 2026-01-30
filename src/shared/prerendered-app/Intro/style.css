@@ -101,6 +101,8 @@
   position: relative;
   background: var(--deep-blue);
   padding-bottom: 5.2vw;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .top-wave {
@@ -108,14 +110,23 @@
   left: 0;
   right: 0;
   bottom: 100%;
+  display: block;
+  -webkit-transform: translateY(0.5px) translateZ(0);
+  transform: translateY(0.5px) translateZ(0);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  pointer-events: none;
 }
 
 .main-wave {
   fill: var(--deep-blue);
+  shape-rendering: crispEdges;
 }
 
 .sub-wave {
   fill: var(--light-gray);
+  shape-rendering: crispEdges;
 }
 
 .bottom-wave {
