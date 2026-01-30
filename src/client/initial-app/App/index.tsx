@@ -176,7 +176,7 @@ export default class App extends Component<Props, State> {
 
     return (
       <div class={style.app}>
-        <file-drop onfiledrop={this.onFileDrop} class={style.drop}>
+        <file-drop onfiledrop={this.onFileDrop} class={style.drop} multiple>
           {showSpinner ? (
             <loading-spinner class={style.appLoader} />
           ) : isBatchMode && BatchCompress && files && files.length > 0 ? (
