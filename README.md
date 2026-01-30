@@ -1,6 +1,6 @@
-# OptiPix
+# [OptiPix](https://optipix.abitech.com.pe)
 
-**Imágenes ligeras** - Optimizá tus pixels al instante.
+> Desarrollado por [Abimael Fernandez](https://github.com/abitech-dev). ¡Optimiza tus imágenes y disfruta la tecnología!
 
 OptiPix es una aplicación web de compresión de imágenes que reduce el tamaño de las imágenes a través de numerosos formatos.
 
