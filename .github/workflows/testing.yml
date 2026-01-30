@@ -1,0 +1,23 @@
+name: Desplegar a entorno UAT
+on:
+  push:
+    branches:
+      - test
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ejecutar script de despliegue
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.UAT_SSH_HOST }}
+          username: ${{ secrets.UAT_SSH_USER }}
+          key: ${{ secrets.UAT_SSH_KEY }}
+          script: |
+            php -v
+            cd htdocs/optipixuat.abitech.com.pe
+            git reset --hard HEAD
+            git pull origin test
+            npm install
+            npm run build
+
