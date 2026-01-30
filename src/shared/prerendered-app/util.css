@@ -21,4 +21,28 @@
       outline: none;
     }
   }
+
+  /* Custom scrollbar styles */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--light-gray);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--pink);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--blue);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--light-gray);
+  }
 }

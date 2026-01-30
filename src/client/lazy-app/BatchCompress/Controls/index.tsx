@@ -43,7 +43,7 @@ export default class Controls extends Component<Props> {
     return (
       <div class={style.controls}>
         <div class={style.optionsScroller}>
-          <h3 class={style.optionsTitle}>Compress</h3>
+          <h3 class={style.optionsTitle}>Comprimir</h3>
 
           <section class={`${style.optionOneCell} ${style.optionsSection}`}>
             <div class={style.selectWrapper}>

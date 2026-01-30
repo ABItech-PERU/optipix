@@ -232,7 +232,7 @@ export class Options extends Component<Props, State> {
         onSubmit={preventDefault}
       >
         <label class={style.optionTextFirst}>
-          Method:
+          Método de redimensionamiento:
           <Select
             name="resizeMethod"
             value={options.method}
@@ -245,22 +245,22 @@ export class Options extends Component<Props, State> {
             <option value="triangle">Triangle (bilinear)</option>
             <option value="hqx">hqx (pixel art)</option>
             <option value="browser-pixelated">Browser pixelated</option>
-            <option value="browser-low">Browser low quality</option>
-            <option value="browser-medium">Browser medium quality</option>
-            <option value="browser-high">Browser high quality</option>
+            <option value="browser-low">Navegador baja calidad</option>
+            <option value="browser-medium">Navegador calidad media</option>
+            <option value="browser-high">Navegador alta calidad</option>
           </Select>
         </label>
         <label class={style.optionTextFirst}>
-          Preset:
+          Preajuste:
           <Select value={this.getPreset()} onChange={this.onPresetChange}>
             {sizePresets.map((preset) => (
               <option value={preset}>{preset * 100}%</option>
             ))}
-            <option value="custom">Custom</option>
+            <option value="custom">Personalizado</option>
           </Select>
         </label>
         <label class={style.optionTextFirst}>
-          Width:
+          Ancho:
           <input
             required
             class={style.textField}
@@ -272,7 +272,7 @@ export class Options extends Component<Props, State> {
           />
         </label>
         <label class={style.optionTextFirst}>
-          Height:
+          Altura:
           <input
             required
             class={style.textField}
@@ -286,7 +286,7 @@ export class Options extends Component<Props, State> {
         <Expander>
           {isWorkerOptions(options) ? (
             <label class={style.optionToggle}>
-              Premultiply alpha channel
+              Premultiplicar alfa
               <Checkbox
                 name="premultiply"
                 checked={options.premultiply}
@@ -306,7 +306,7 @@ export class Options extends Component<Props, State> {
           ) : null}
         </Expander>
         <label class={style.optionToggle}>
-          Maintain aspect ratio
+          Mantener aspecto proporcional
           <Checkbox
             name="maintainAspect"
             checked={maintainAspect}
@@ -316,14 +316,14 @@ export class Options extends Component<Props, State> {
         <Expander>
           {maintainAspect ? null : (
             <label class={style.optionTextFirst}>
-              Fit method:
+              Método de ajuste:
               <Select
                 name="fitMethod"
                 value={options.fitMethod}
                 onChange={this.onChange}
               >
-                <option value="stretch">Stretch</option>
-                <option value="contain">Contain</option>
+                <option value="stretch">Estirar</option>
+                <option value="contain">Contener</option>
               </Select>
             </label>
           )}

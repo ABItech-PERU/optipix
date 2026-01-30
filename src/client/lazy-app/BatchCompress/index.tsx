@@ -543,7 +543,7 @@ export default class BatchCompress extends Component<Props, State> {
           </button>
 
           <div class={style.fileCount}>
-            {completedCount}/{processedFiles.length}
+            {completedCount} / {processedFiles.length}
           </div>
         </header>
 

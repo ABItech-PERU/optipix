@@ -176,7 +176,7 @@ export class Options extends Component<Props, State> {
     return (
       <form class={style.optionsSection} onSubmit={preventDefault}>
         <label class={style.optionToggle}>
-          Lossless
+          Sin pérdida
           <Checkbox
             checked={lossless}
             onChange={this._inputChange('lossless', 'boolean')}
@@ -191,7 +191,7 @@ export class Options extends Component<Props, State> {
                 value={quality}
                 onInput={this._inputChange('quality', 'number')}
               >
-                Quality:
+                Calidad:
               </Range>
             </div>
           )}
@@ -201,7 +201,7 @@ export class Options extends Component<Props, State> {
             checked={showAdvanced}
             onChange={linkState(this, 'showAdvanced')}
           />
-          Advanced settings
+          Configuración avanzada
         </label>
         <Expander>
           {showAdvanced && (
@@ -210,7 +210,7 @@ export class Options extends Component<Props, State> {
                 {!lossless && (
                   <div>
                     <label class={style.optionTextFirst}>
-                      Subsample chroma:
+                      Submuestreo de croma:
                       <Select
                         value={subsample}
                         onChange={this._inputChange('subsample', 'number')}
@@ -224,7 +224,7 @@ export class Options extends Component<Props, State> {
                     <Expander>
                       {subsample === 1 && (
                         <label class={style.optionToggle}>
-                          Sharp YUV Downsampling
+                          Submuestreo YUV nítido
                           <Checkbox
                             checked={enableSharpYUV}
                             onChange={this._inputChange(
@@ -236,7 +236,7 @@ export class Options extends Component<Props, State> {
                       )}
                     </Expander>
                     <label class={style.optionToggle}>
-                      Separate alpha quality
+                      Calidad alfa separada
                       <Checkbox
                         checked={separateAlpha}
                         onChange={this._inputChange('separateAlpha', 'boolean')}
@@ -254,13 +254,13 @@ export class Options extends Component<Props, State> {
                               'number',
                             )}
                           >
-                            Alpha quality:
+                            Calidad alfa:
                           </Range>
                         </div>
                       )}
                     </Expander>
                     <label class={style.optionToggle}>
-                      Extra chroma compression
+                      Compresión extra de croma
                       <Checkbox
                         checked={chromaDeltaQ}
                         onChange={this._inputChange('chromaDeltaQ', 'boolean')}
@@ -273,7 +273,7 @@ export class Options extends Component<Props, State> {
                         value={sharpness}
                         onInput={this._inputChange('sharpness', 'number')}
                       >
-                        Sharpness:
+                        Nitidez:
                       </Range>
                     </div>
                     <div class={style.optionOneCell}>
@@ -283,11 +283,11 @@ export class Options extends Component<Props, State> {
                         value={denoiseLevel}
                         onInput={this._inputChange('denoiseLevel', 'number')}
                       >
-                        Noise synthesis:
+                        Síntesis de ruido:
                       </Range>
                     </div>
                     <label class={style.optionTextFirst}>
-                      Tuning:
+                      Ajuste:
                       <Select
                         value={tune}
                         onChange={this._inputChange('tune', 'number')}
@@ -307,7 +307,7 @@ export class Options extends Component<Props, State> {
                   value={tileRows}
                   onInput={this._inputChange('tileRows', 'number')}
                 >
-                  Log2 of tile rows:
+                  Log2 de filas de mosaico:
                 </Range>
               </div>
               <div class={style.optionOneCell}>
@@ -317,7 +317,7 @@ export class Options extends Component<Props, State> {
                   value={tileCols}
                   onInput={this._inputChange('tileCols', 'number')}
                 >
-                  Log2 of tile cols:
+                  Log2 de columnas de mosaico:
                 </Range>
               </div>
             </div>
@@ -330,7 +330,7 @@ export class Options extends Component<Props, State> {
             value={effort}
             onInput={this._inputChange('effort', 'number')}
           >
-            Effort:
+            Esfuerzo:
           </Range>
         </div>
       </form>

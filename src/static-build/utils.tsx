@@ -63,7 +63,7 @@ export function escapeStyleScriptContent(str: string): string {
  * Origin of the site, depending on the environment.
  */
 export const siteOrigin = (() => {
-  const origin = process.env.SITE_ORIGIN || 'https://squoosh.app';
+  const origin = process.env.SITE_ORIGIN || 'https://optipix.abitech.com.pe';
   const port = process.env.PORT;
   if (process.env.CONTEXT !== 'production' && port) return `${origin}:${port}`;
   return origin;

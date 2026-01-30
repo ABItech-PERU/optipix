@@ -2,19 +2,27 @@ import { h, Component } from 'preact';
 
 import { linkRef } from 'shared/prerendered-app/util';
 import '../../custom-els/loading-spinner';
-import logo from 'url:./imgs/logo.svg';
 import githubLogo from 'url:./imgs/github-logo.svg';
 import largePhoto from 'url:./imgs/demos/demo-large-photo.jpg';
-import artwork from 'url:./imgs/demos/demo-artwork.jpg';
-import deviceScreen from 'url:./imgs/demos/demo-device-screen.png';
+
 import largePhotoIcon from 'url:./imgs/demos/icon-demo-large-photo.jpg';
-import artworkIcon from 'url:./imgs/demos/icon-demo-artwork.jpg';
-import deviceScreenIcon from 'url:./imgs/demos/icon-demo-device-screen.jpg';
 import smallSectionAsset from 'url:./imgs/info-content/small.svg';
 import simpleSectionAsset from 'url:./imgs/info-content/simple.svg';
 import secureSectionAsset from 'url:./imgs/info-content/secure.svg';
-import logoIcon from 'url:./imgs/demos/icon-demo-logo.png';
-import logoWithText from 'data-url-text:./imgs/logo-with-text.svg';
+import multiImagesSectionAsset from 'url:./imgs/info-content/multi-images.svg';
+import logoOptiPixSvg from 'data-url-text:./imgs/logo-with-text.svg';
+
+import banderaPeru from 'url:./imgs/demos/demo-bandera-peru.jpeg';
+import iconBanderaPeru from 'url:./imgs/demos/icon-bandera-peru.webp';
+import machuPicchu from 'url:./imgs/demos/demo-machu-picchu.jpg';
+import iconMachuPicchu from 'url:./imgs/demos/icon-machu-picchu.webp';
+import iconOptipix from 'url:./imgs/demos/icon-logo-optipix.webp';
+import logoOptiPix from 'url:./imgs/demos/demo-logo-optipix.png';
+import hojaNaturalGrande from 'url:./imgs/demos/demo-hoja-natural-grande.jpg';
+import hojaNaturalGrandeIcon from 'url:./imgs/demos/icon-hoja-natural-grande.webp';
+import sanSebastian from 'url:./imgs/demos/demo-san-sebastian-huanuco.jpg';
+import iconSanSebastian from 'url:./imgs/demos/icon-san-sebastian-huanuco.webp';
+
 import * as style from './style.css';
 import type SnackBarElement from 'shared/custom-els/snack-bar';
 import 'shared/custom-els/snack-bar';
@@ -24,32 +32,46 @@ import SlideOnScroll from './SlideOnScroll';
 
 const demos = [
   {
-    description: 'Large photo',
+    description: 'Foto grande',
     size: '2.8MB',
     filename: 'photo.jpg',
     url: largePhoto,
     iconUrl: largePhotoIcon,
   },
   {
-    description: 'Artwork',
-    size: '2.9MB',
-    filename: 'art.jpg',
-    url: artwork,
-    iconUrl: artworkIcon,
+    description: 'Bandera del Perú',
+    size: '1MB',
+    filename: 'bandera-peru.jpeg',
+    url: banderaPeru,
+    iconUrl: iconBanderaPeru,
   },
   {
-    description: 'Device screen',
-    size: '1.6MB',
-    filename: 'pixel3.png',
-    url: deviceScreen,
-    iconUrl: deviceScreenIcon,
+    description: 'Machu Picchu',
+    size: '3MB',
+    filename: 'machu-picchu.jpg',
+    url: machuPicchu,
+    iconUrl: iconMachuPicchu,
   },
   {
-    description: 'SVG icon',
-    size: '13KB',
-    filename: 'squoosh.svg',
-    url: logo,
-    iconUrl: logoIcon,
+    description: 'Hoja natural grande',
+    size: '2MB',
+    filename: 'hoja-natural-grande.jpg',
+    url: hojaNaturalGrande,
+    iconUrl: hojaNaturalGrandeIcon,
+  },
+  {
+    description: 'Iglesia san Sebastián',
+    size: '11.5MB',
+    filename: 'san-sebastian-huanuco.jpg',
+    url: sanSebastian,
+    iconUrl: iconSanSebastian,
+  },
+  {
+    description: 'Logotipo OptiPix',
+    size: '60KB',
+    filename: 'logo-optipix.png',
+    url: logoOptiPix,
+    iconUrl: iconOptipix,
   },
 ] as const;
 
@@ -90,13 +112,13 @@ export default class Intro extends Component<Props, State> {
   private installingViaButton = false;
 
   componentDidMount() {
-    // Listen for beforeinstallprompt events, indicating Squoosh is installable.
+    // Listen for beforeinstallprompt events, indicating OptiPix is installable.
     window.addEventListener(
       'beforeinstallprompt',
       this.onBeforeInstallPromptEvent,
     );
 
-    // Listen for the appinstalled event, indicating Squoosh has been installed.
+    // Listen for the appinstalled event, indicating OptiPix has been installed.
     window.addEventListener('appinstalled', this.onAppInstalled);
 
     if (blobAnimImport) {
@@ -129,7 +151,9 @@ export default class Intro extends Component<Props, State> {
     const { accepted, rejected } = filterValidFiles(filesArray);
 
     for (const r of rejected) {
-      this.props.showSnack?.(`${r.file.name}: ${r.reason}`);
+      this.props.showSnack?.(`${r.file.name}: ${r.reason}`, {
+        actions: ['Cerrar'],
+      });
     }
 
     this.fileInput!.value = '';
@@ -154,7 +178,9 @@ export default class Intro extends Component<Props, State> {
       const file = new File([blob], demo.filename, { type: blob.type });
       const v = validateFile(file);
       if (!v.valid) {
-        this.props.showSnack!(`${file.name}: ${v.reason}`);
+        this.props.showSnack!(`${file.name}: ${v.reason}`, {
+          actions: ['Cerrar'],
+        });
         this.setState({ fetchingDemoIndex: undefined });
         return;
       }
@@ -162,7 +188,10 @@ export default class Intro extends Component<Props, State> {
       this.props.onFile!(file);
     } catch (err) {
       this.setState({ fetchingDemoIndex: undefined });
-      this.props.showSnack!("Couldn't fetch demo image");
+      this.props.showSnack!('No se pudo cargar la imagen de demo', {
+        timeout: 5000,
+        actions: ['Cerrar'],
+      });
     }
   };
 
@@ -231,14 +260,20 @@ export default class Intro extends Component<Props, State> {
     try {
       clipboardItems = await navigator.clipboard.read();
     } catch (err) {
-      this.props.showSnack!(`No permission to access clipboard`);
+      this.props.showSnack!(`No hay permiso para acceder al portapapeles`, {
+        timeout: 5000,
+        actions: ['Cerrar'],
+      });
       return;
     }
 
     const blob = await getImageClipboardItem(clipboardItems);
 
     if (!blob) {
-      this.props.showSnack!(`No image found in the clipboard`);
+      this.props.showSnack!(`No se encontró imagen en el portapapeles`, {
+        timeout: 5000,
+        actions: ['Cerrar'],
+      });
       return;
     }
 
@@ -246,7 +281,9 @@ export default class Intro extends Component<Props, State> {
 
     const v = validateFile(file);
     if (!v.valid) {
-      this.props.showSnack!(`${file.name}: ${v.reason}`);
+      this.props.showSnack!(`${file.name}: ${v.reason}`, {
+        actions: ['Cerrar'],
+      });
       return;
     }
 
@@ -276,8 +313,8 @@ export default class Intro extends Component<Props, State> {
           <h1 class={style.logoContainer}>
             <img
               class={style.logo}
-              src={logoWithText}
-              alt="Squoosh"
+              src={logoOptiPixSvg}
+              alt="OptiPix"
               width="539"
               height="162"
             />
@@ -318,13 +355,13 @@ export default class Intro extends Component<Props, State> {
                 </svg>
               </button>
               <div>
-                <span class={style.dropText}>Drop </span>OR{' '}
+                <span class={style.dropText}>Soltar </span>O{' '}
                 {supportsClipboardAPI ? (
                   <button class={style.pasteBtn} onClick={this.onPasteClick}>
-                    Paste
+                    Pegar
                   </button>
                 ) : (
-                  'Paste'
+                  'Pegar'
                 )}
               </div>
             </div>
@@ -343,7 +380,7 @@ export default class Intro extends Component<Props, State> {
           </svg>
           <div class={style.contentPadding}>
             <p class={style.demoTitle}>
-              Or <strong>try one</strong> of these:
+              O <strong>pruebe uno</strong> de estos:
             </p>
             <ul class={style.demos}>
               {demos.map((demo, i) => (
@@ -388,10 +425,11 @@ export default class Intro extends Component<Props, State> {
             <SlideOnScroll>
               <div class={style.infoContent}>
                 <div class={style.infoTextWrapper}>
-                  <h2 class={style.infoTitle}>Small</h2>
+                  <h2 class={style.infoTitle}>Pequeño</h2>
                   <p class={style.infoCaption}>
-                    Smaller images mean faster load times. Squoosh can reduce
-                    file size and maintain high quality.
+                    Las imágenes más pequeñas significan tiempos de carga más
+                    rápidos. OptiPix puede reducir el tamaño de los archivos y
+                    mantener una alta calidad.
                   </p>
                 </div>
                 <div class={style.infoImgWrapper}>
@@ -413,11 +451,11 @@ export default class Intro extends Component<Props, State> {
             <SlideOnScroll>
               <div class={style.infoContent}>
                 <div class={style.infoTextWrapper}>
-                  <h2 class={style.infoTitle}>Simple</h2>
+                  <h2 class={style.infoTitle}>Sencillo</h2>
                   <p class={style.infoCaption}>
-                    Open your image, inspect the differences, then save
-                    instantly. Feeling adventurous? Adjust the settings for even
-                    smaller files.
+                    Abra su imagen, inspeccione las diferencias y luego guárdela
+                    instantáneamente. ¿te sientes aventurero? Ajuste la
+                    configuración para archivos aún más pequeños.
                   </p>
                 </div>
                 <div class={style.infoImgWrapper}>
@@ -439,10 +477,11 @@ export default class Intro extends Component<Props, State> {
             <SlideOnScroll>
               <div class={style.infoContent}>
                 <div class={style.infoTextWrapper}>
-                  <h2 class={style.infoTitle}>Secure</h2>
+                  <h2 class={style.infoTitle}>Seguro</h2>
                   <p class={style.infoCaption}>
-                    Worried about privacy? Images never leave your device since
-                    Squoosh does all the work locally.
+                    ¿Preocupado por la privacidad? Las imágenes nunca salen de
+                    su dispositivo ya que OptiPix realiza todo el trabajo
+                    localmente.
                   </p>
                 </div>
                 <div class={style.infoImgWrapper}>
@@ -452,6 +491,30 @@ export default class Intro extends Component<Props, State> {
                     alt="silhouette of a cloud with a 'no' symbol on top"
                     width="498"
                     height="333"
+                  />
+                </div>
+              </div>
+            </SlideOnScroll>
+          </div>
+        </section>
+
+        <section class={style.info}>
+          <div class={style.infoContainer}>
+            <SlideOnScroll>
+              <div class={style.infoContent}>
+                <div class={style.infoTextWrapper}>
+                  <h2 class={style.infoTitle}>Múltiples fotos</h2>
+                  <p class={style.infoCaption}>
+                    Cargue varias imágenes a la vez y comprímalas en masa para
+                    ahorrar tiempo y esfuerzo.
+                  </p>
+                </div>
+                <div class={style.infoImgWrapper}>
+                  <img
+                    class={style.infoImg}
+                    src={multiImagesSectionAsset}
+                    alt="grid of multiple images being compressed at once"
+                    width="700"
                   />
                 </div>
               </div>
@@ -471,16 +534,16 @@ export default class Intro extends Component<Props, State> {
               <footer class={style.footerItems}>
                 <a
                   class={style.footerLink}
-                  href="https://github.com/GoogleChromeLabs/squoosh/blob/dev/README.md#privacy"
+                  href="https://github.com/abitech-peru/optipix/blob/main/README.md#privacy"
                 >
-                  Privacy
+                  Privacidad
                 </a>
                 <a
                   class={style.footerLinkWithLogo}
-                  href="https://github.com/GoogleChromeLabs/squoosh"
+                  href="https://github.com/abitech-peru/optipix"
                 >
                   <img src={githubLogo} alt="" width="10" height="10" />
-                  Source on Github
+                  Ver en Github
                 </a>
               </footer>
             </div>
@@ -488,7 +551,18 @@ export default class Intro extends Component<Props, State> {
         </footer>
         {beforeInstallEvent && (
           <button class={style.installBtn} onClick={this.onInstallClick}>
-            Install
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              style="margin-right: 0.5em;"
+            >
+              <path
+                d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+                fill="currentColor"
+              />
+            </svg>
+            Instalar
           </button>
         )}
       </div>

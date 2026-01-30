@@ -133,7 +133,7 @@ export class Options extends Component<Props, State> {
     return (
       <form class={style.optionsSection} onSubmit={preventDefault}>
         <label class={style.optionToggle}>
-          Lossless
+          Sin pérdida
           <Checkbox
             name="lossless"
             checked={lossless}
@@ -143,7 +143,7 @@ export class Options extends Component<Props, State> {
         <Expander>
           {lossless && (
             <label class={style.optionToggle}>
-              Slight loss
+              Pérdida ligera
               <Checkbox
                 name="slightLoss"
                 checked={slightLoss}
@@ -163,11 +163,11 @@ export class Options extends Component<Props, State> {
                   value={quality}
                   onInput={this._inputChange('quality', 'number')}
                 >
-                  Quality:
+                  Calidad:
                 </Range>
               </div>
               <label class={style.optionToggle}>
-                Alternative lossy mode
+                Modo de pérdida alternativo
                 <Checkbox
                   checked={quality < 7 ? true : alternativeLossy}
                   disabled={quality < 7}
@@ -175,7 +175,7 @@ export class Options extends Component<Props, State> {
                 />
               </label>
               <label class={style.optionToggle}>
-                Auto edge filter
+                Filtro de borde automático
                 <Checkbox
                   checked={autoEdgePreservingFilter}
                   onChange={this._inputChange(
@@ -196,7 +196,7 @@ export class Options extends Component<Props, State> {
                         'number',
                       )}
                     >
-                      Edge preserving filter:
+                      Filtro de preservación de bordes:
                     </Range>
                   </div>
                 )}
@@ -208,7 +208,7 @@ export class Options extends Component<Props, State> {
                   value={decodingSpeedTier}
                   onInput={this._inputChange('decodingSpeedTier', 'number')}
                 >
-                  Optimise for decoding speed (worse compression):
+                  Optimizar para velocidad de decodificación (peor compresión):
                 </Range>
               </div>
               <div class={style.optionOneCell}>
@@ -219,14 +219,14 @@ export class Options extends Component<Props, State> {
                   value={photonNoiseIso}
                   onInput={this._inputChange('photonNoiseIso', 'number')}
                 >
-                  Noise equivalent to ISO:
+                  Ruido equivalente a ISO:
                 </Range>
               </div>
             </div>
           )}
         </Expander>
         <label class={style.optionToggle}>
-          Progressive rendering
+          Renderizado progresivo
           <Checkbox
             name="progressive"
             checked={progressive}
@@ -240,7 +240,7 @@ export class Options extends Component<Props, State> {
             value={effort}
             onInput={this._inputChange('effort', 'number')}
           >
-            Effort:
+            Esfuerzo:
           </Range>
         </div>
       </form>

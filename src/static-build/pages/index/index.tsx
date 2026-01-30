@@ -25,16 +25,21 @@ import * as snackbarStyle from '../../../shared/custom-els/snack-bar/styles.css'
 interface Props {}
 
 const Index: FunctionalComponent<Props> = () => (
-  <html lang="en">
+  <html lang="es">
     <head>
-      <title>Squoosh</title>
+      <title>OptiPix</title>
       <meta
         name="description"
-        content="Squoosh is the ultimate image optimizer that allows you to compress and compare images with different codecs in your browser."
+        content="OptiPix es el optimizador de imágenes definitivo que permite comprimir y comparar imágenes con diferentes codecs en tu navegador."
       />
+      <meta
+        name="keywords"
+        content="OptiPix, abi tech, abitech, abitech peru, optimizador de imágenes, compresor de imágenes, compresión de imágenes, conversor de imágenes, webp, avif, mozjpeg, cwebp, oxipng, pngquant, jpeg-2020, guetzli, squoosh"
+      />
+      <meta name="author" content="OptiPix" />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content="@SquooshApp" />
-      <meta property="og:title" content="Squoosh" />
+      <meta name="twitter:site" content="@OptiPixApp" />
+      <meta property="og:title" content="OptiPix" />
       <meta property="og:type" content="website" />
       <meta property="og:image" content={`${siteOrigin}${ogImage}`} />
       <meta
@@ -46,11 +51,11 @@ const Index: FunctionalComponent<Props> = () => (
       <meta property="og:image:height" content="500" />
       <meta
         property="og:image:alt"
-        content="A cartoon of a hand squeezing an image file on a dark background."
+        content="Un ícono de pixels optimizados en un fondo oscuro."
       />
       <meta
         name="og:description"
-        content="Squoosh is the ultimate image optimizer that allows you to compress and compare images with different codecs in your browser."
+        content="OptiPix es el optimizador de imágenes definitivo que permite comprimir y comparar imágenes con diferentes codecs en tu navegador."
       />
       <meta
         name="viewport"
@@ -60,7 +65,7 @@ const Index: FunctionalComponent<Props> = () => (
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <link rel="shortcut icon" href={favicon} />
       <link rel="apple-touch-icon" href={ogImage} />
-      <meta name="theme-color" content="#ff3385" />
+      <meta name="theme-color" content="#23272b" />
       <link rel="manifest" href="/manifest.json" />
       <link rel="canonical" href={siteOrigin} />
       <style
@@ -89,11 +94,10 @@ const Index: FunctionalComponent<Props> = () => (
               aria-hidden="false"
             >
               <div class={snackbarStyle.text}>
-                Initialization error: This site requires JavaScript, which is
-                disabled in your browser.
+                Por favor, habilita JavaScript para usar OptiPix.
               </div>
               <a class={snackbarStyle.button} href="/">
-                reload
+                recargar
               </a>
             </div>
           </snack-bar>

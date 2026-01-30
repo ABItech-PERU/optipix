@@ -1,6 +1,8 @@
-# [Abipress]!
+# OptiPix
 
-[Abipress] es una aplicación web de compresión de imágenes que reduce el tamaño de las imágenes a través de numerosos formatos.
+**Imágenes ligeras** - Optimizá tus pixels al instante.
+
+OptiPix es una aplicación web de compresión de imágenes que reduce el tamaño de las imágenes a través de numerosos formatos.
 
 ## Características principales
 
@@ -14,18 +16,18 @@
 
 ## Privacidad
 
-Abipress no envía tu imagen a un servidor. Todo el proceso de compresión de imágenes se realiza localmente.
+OptiPix no envía tu imagen a un servidor. Todo el proceso de compresión de imágenes se realiza localmente.
 
-Sin embargo, Abipress utiliza Google Analytics para recopilar lo siguiente:
+Sin embargo, OptiPix utiliza Google Analytics para recopilar lo siguiente:
 
 - [Datos básicos de visitantes](https://support.google.com/analytics/answer/6004245ref_topic=2919631).
 - El valor del tamaño de la imagen antes y después.
-- Si es Abipress PWA, el tipo de instalación de Abipress.
-- Si es Abipress PWA, la hora y fecha de instalación.
+- Si es OptiPix PWA, el tipo de instalación de OptiPix.
+- Si es OptiPix PWA, la hora y fecha de instalación.
 
 ## Requisitos
 
-Para desarrollar y ejecutar Abipress, necesitas:
+Para desarrollar y ejecutar OptiPix, necesitas:
 
 - **Node.js**: Versión 16 o superior (recomendado 18+).
 - **npm**: Incluido con Node.js, versión 7+.
@@ -36,7 +38,7 @@ Asegúrate de tener estas herramientas instaladas antes de continuar.
 
 ## Desarrollo
 
-Para desarrollar en Abipress:
+Para desarrollar en OptiPix:
 
 1. Clona el repositorio
 1. Para instalar los paquetes de node, ejecuta:
@@ -54,7 +56,7 @@ Para desarrollar en Abipress:
 
 ## Contribuir
 
-Abipress es un proyecto de código abierto que aprecia toda la participación de la comunidad. Para contribuir al proyecto, sigue la [guía de contribución](/CONTRIBUTING.md).
+OptiPix es un proyecto de código abierto que aprecia toda la participación de la comunidad. Para contribuir al proyecto, sigue la [guía de contribución](/CONTRIBUTING.md).
 
 ## Licencia
 
@@ -62,4 +64,4 @@ Este proyecto está licenciado bajo la Licencia Apache 2.0 - consulta el archivo
 
 Basado en el proyecto original [Squoosh](https://github.com/GoogleChromeLabs/squoosh) de Google Chrome Labs.
 
-[abipress]: https://abipress.abitech.com.pe
+[optipix]: https://optipix.abitech.com.pe

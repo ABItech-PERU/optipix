@@ -114,7 +114,7 @@ export class Options extends Component<Props, State> {
             value={options.quality}
             onInput={this.onChange}
           >
-            Quality:
+            Calidad:
           </Range>
         </div>
         <label class={style.optionReveal}>
@@ -122,19 +122,19 @@ export class Options extends Component<Props, State> {
             checked={showAdvanced}
             onChange={linkState(this, 'showAdvanced')}
           />
-          Advanced settings
+          Configuración avanzada
         </label>
         <Expander>
           {showAdvanced ? (
             <div>
               <label class={style.optionTextFirst}>
-                Channels:
+                Canales:
                 <Select
                   name="color_space"
                   value={options.color_space}
                   onChange={this.onChange}
                 >
-                  <option value={MozJpegColorSpace.GRAYSCALE}>Grayscale</option>
+                  <option value={MozJpegColorSpace.GRAYSCALE}>Escala de grises</option>
                   <option value={MozJpegColorSpace.RGB}>RGB</option>
                   <option value={MozJpegColorSpace.YCbCr}>YCbCr</option>
                 </Select>
@@ -143,7 +143,7 @@ export class Options extends Component<Props, State> {
                 {options.color_space === MozJpegColorSpace.YCbCr ? (
                   <div>
                     <label class={style.optionToggle}>
-                      Auto subsample chroma
+                      Submuestreo automático de croma
                       <Checkbox
                         name="auto_subsample"
                         checked={options.auto_subsample}
@@ -160,13 +160,13 @@ export class Options extends Component<Props, State> {
                             value={options.chroma_subsample}
                             onInput={this.onChange}
                           >
-                            Subsample chroma by:
+                            Submuestreo de croma:
                           </Range>
                         </div>
                       )}
                     </Expander>
                     <label class={style.optionToggle}>
-                      Separate chroma quality
+                      Calidad de croma separada
                       <Checkbox
                         name="separate_chroma_quality"
                         checked={options.separate_chroma_quality}
@@ -183,7 +183,7 @@ export class Options extends Component<Props, State> {
                             value={options.chroma_quality}
                             onInput={this.onChange}
                           >
-                            Chroma quality:
+                            Calidad de croma:
                           </Range>
                         </div>
                       ) : null}
@@ -192,7 +192,7 @@ export class Options extends Component<Props, State> {
                 ) : null}
               </Expander>
               <label class={style.optionToggle}>
-                Pointless spec compliance
+                Cumplimiento de especificación innecesario
                 <Checkbox
                   name="baseline"
                   checked={options.baseline}
@@ -202,7 +202,7 @@ export class Options extends Component<Props, State> {
               <Expander>
                 {options.baseline ? null : (
                   <label class={style.optionToggle}>
-                    Progressive rendering
+                    Renderizado progresivo
                     <Checkbox
                       name="progressive"
                       checked={options.progressive}
@@ -214,7 +214,7 @@ export class Options extends Component<Props, State> {
               <Expander>
                 {options.baseline ? (
                   <label class={style.optionToggle}>
-                    Optimize Huffman table
+                    Optimizar tabla Huffman
                     <Checkbox
                       name="optimize_coding"
                       checked={options.optimize_coding}
@@ -231,21 +231,21 @@ export class Options extends Component<Props, State> {
                   value={options.smoothing}
                   onInput={this.onChange}
                 >
-                  Smoothing:
+                  Suavizado:
                 </Range>
               </div>
               <label class={style.optionTextFirst}>
-                Quantization:
+                Cuantización:
                 <Select
                   name="quant_table"
                   value={options.quant_table}
                   onChange={this.onChange}
                 >
-                  <option value="0">JPEG Annex K</option>
-                  <option value="1">Flat</option>
-                  <option value="2">MSSIM-tuned Kodak</option>
+                  <option value="0">Anexo K de JPEG</option>
+                  <option value="1">Plano</option>
+                  <option value="2">Kodak ajustado a MSSIM</option>
                   <option value="3">ImageMagick</option>
-                  <option value="4">PSNR-HVS-M-tuned Kodak</option>
+                  <option value="4">Kodak ajustado a PSNR-HVS-M</option>
                   <option value="5">Klein et al</option>
                   <option value="6">Watson et al</option>
                   <option value="7">Ahumada et al</option>
@@ -253,7 +253,7 @@ export class Options extends Component<Props, State> {
                 </Select>
               </label>
               <label class={style.optionToggle}>
-                Trellis multipass
+                Multipaso trellis
                 <Checkbox
                   name="trellis_multipass"
                   checked={options.trellis_multipass}
@@ -263,7 +263,7 @@ export class Options extends Component<Props, State> {
               <Expander>
                 {options.trellis_multipass ? (
                   <label class={style.optionToggle}>
-                    Optimize zero block runs
+                    Optimizar ejecuciones de bloques cero
                     <Checkbox
                       name="trellis_opt_zero"
                       checked={options.trellis_opt_zero}
@@ -273,7 +273,7 @@ export class Options extends Component<Props, State> {
                 ) : null}
               </Expander>
               <label class={style.optionToggle}>
-                Optimize after trellis quantization
+                Optimizar después de cuantización trellis
                 <Checkbox
                   name="trellis_opt_table"
                   checked={options.trellis_opt_table}
@@ -288,7 +288,7 @@ export class Options extends Component<Props, State> {
                   value={options.trellis_loops}
                   onInput={this.onChange}
                 >
-                  Trellis quantization passes:
+                  Pasadas de cuantización trellis:
                 </Range>
               </div>
             </div>

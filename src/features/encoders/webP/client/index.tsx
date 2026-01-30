@@ -177,11 +177,11 @@ export class Options extends Component<Props, State> {
             value={'' + (100 - options.near_lossless)}
             onInput={this.onChange}
           >
-            Slight loss:
+            Pérdida ligera:
           </Range>
         </div>
         <label class={style.optionToggle}>
-          Discrete tone image
+          Imagen de tono discreto
           {/*
             Although there are 3 different kinds of image hint, webp only
             seems to do something with the 'graph' type, and I don't really
@@ -222,7 +222,7 @@ export class Options extends Component<Props, State> {
             value={options.quality}
             onInput={this.onChange}
           >
-            Quality:
+            Calidad:
           </Range>
         </div>
         <label class={style.optionReveal}>
@@ -230,13 +230,13 @@ export class Options extends Component<Props, State> {
             checked={showAdvanced}
             onChange={linkState(this, 'showAdvanced')}
           />
-          Advanced settings
+          Configuración avanzada
         </label>
         <Expander>
           {showAdvanced ? (
             <div>
               <label class={style.optionToggle}>
-                Compress alpha
+                Comprimir alfa
                 <Checkbox
                   name="alpha_compression"
                   checked={!!options.alpha_compression}
@@ -251,7 +251,7 @@ export class Options extends Component<Props, State> {
                   value={options.alpha_quality}
                   onInput={this.onChange}
                 >
-                  Alpha quality:
+                  Calidad alfa:
                 </Range>
               </div>
               <div class={style.optionOneCell}>
@@ -262,11 +262,11 @@ export class Options extends Component<Props, State> {
                   value={options.alpha_filtering}
                   onInput={this.onChange}
                 >
-                  Alpha filter quality:
+                  Calidad de filtro alfa:
                 </Range>
               </div>
               <label class={style.optionToggle}>
-                Auto adjust filter strength
+                Ajuste automático de fuerza de filtro
                 <Checkbox
                   name="autofilter"
                   checked={!!options.autofilter}
@@ -283,13 +283,13 @@ export class Options extends Component<Props, State> {
                       value={options.filter_strength}
                       onInput={this.onChange}
                     >
-                      Filter strength:
+                      Fuerza de filtro:
                     </Range>
                   </div>
                 )}
               </Expander>
               <label class={style.optionToggle}>
-                Strong filter
+                Filtro fuerte
                 <Checkbox
                   name="filter_type"
                   checked={!!options.filter_type}
@@ -304,11 +304,11 @@ export class Options extends Component<Props, State> {
                   value={7 - options.filter_sharpness}
                   onInput={this.onChange}
                 >
-                  Filter sharpness:
+                  Nitidez de filtro:
                 </Range>
               </div>
               <label class={style.optionToggle}>
-                Sharp RGB→YUV conversion
+                Conversión RGB→YUV nítida
                 <Checkbox
                   name="use_sharp_yuv"
                   checked={!!options.use_sharp_yuv}
@@ -323,7 +323,7 @@ export class Options extends Component<Props, State> {
                   value={options.pass}
                   onInput={this.onChange}
                 >
-                  Passes:
+                  Pasadas:
                 </Range>
               </div>
               <div class={style.optionOneCell}>
@@ -334,19 +334,19 @@ export class Options extends Component<Props, State> {
                   value={options.sns_strength}
                   onInput={this.onChange}
                 >
-                  Spatial noise shaping:
+                  Modelado de ruido espacial:
                 </Range>
               </div>
               <label class={style.optionTextFirst}>
-                Preprocess:
+                Preprocesar:
                 <Select
                   name="preprocessing"
                   value={options.preprocessing}
                   onChange={this.onChange}
                 >
-                  <option value="0">None</option>
-                  <option value="1">Segment smooth</option>
-                  <option value="2">Pseudo-random dithering</option>
+                  <option value="0">Ninguno</option>
+                  <option value="1">Suavizado de segmento</option>
+                  <option value="2">Difuminado pseudoaleatorio</option>
                 </Select>
               </label>
               <div class={style.optionOneCell}>
@@ -357,7 +357,7 @@ export class Options extends Component<Props, State> {
                   value={options.segments}
                   onInput={this.onChange}
                 >
-                  Segments:
+                  Segmentos:
                 </Range>
               </div>
               <div class={style.optionOneCell}>
@@ -368,7 +368,7 @@ export class Options extends Component<Props, State> {
                   value={options.partitions}
                   onInput={this.onChange}
                 >
-                  Partitions:
+                  Particiones:
                 </Range>
               </div>
             </div>
@@ -384,7 +384,7 @@ export class Options extends Component<Props, State> {
     return (
       <form class={style.optionsSection} onSubmit={preventDefault}>
         <label class={style.optionToggle}>
-          Lossless
+          Sin pérdida
           <Checkbox
             name="lossless"
             checked={!!options.lossless}
@@ -395,7 +395,7 @@ export class Options extends Component<Props, State> {
           ? this._losslessSpecificOptions(options)
           : this._lossySpecificOptions(options)}
         <label class={style.optionToggle}>
-          Preserve transparent data
+          Preservar datos transparentes
           <Checkbox
             name="exact"
             checked={!!options.exact}

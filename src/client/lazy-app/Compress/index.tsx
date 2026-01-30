@@ -457,9 +457,9 @@ export default class Compress extends Component<Props, State> {
       localStorage.setItem('leftSideSettings', leftSideSettings);
       // Firing an event when we save side settings in localstorage
       window.dispatchEvent(new CustomEvent('leftSideSettings'));
-      await this.props.showSnack('Left side settings saved', {
+      await this.props.showSnack('Configuración del lado izquierdo guardada', {
         timeout: 1500,
-        actions: ['dismiss'],
+        actions: ['Cerrar'],
       });
       return;
     }
@@ -472,9 +472,9 @@ export default class Compress extends Component<Props, State> {
       localStorage.setItem('rightSideSettings', rightSideSettings);
       // Firing an event when we save side settings in localstorage
       window.dispatchEvent(new CustomEvent('rightSideSettings'));
-      await this.props.showSnack('Right side settings saved', {
+      await this.props.showSnack('Configuración del lado derecho guardada', {
         timeout: 1500,
-        actions: ['dismiss'],
+        actions: ['Cerrar'],
       });
       return;
     }
@@ -951,7 +951,7 @@ export default class Compress extends Component<Props, State> {
         typeLabel={
           side.latestSettings.encoderState
             ? encoderMap[side.latestSettings.encoderState.type].meta.label
-            : `${side.file ? `${side.file.name}` : 'Original Image'}`
+            : `${side.file ? `${side.file.name}` : 'Imagen Original'}`
         }
       />
     ));

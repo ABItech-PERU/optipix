@@ -5,7 +5,7 @@ const __env: { [k: string]: string | undefined } =
 
 export const ALLOWED_UPLOAD_MIMES: string[] = (
   (__env.ALLOWED_UPLOAD_MIMES as string) ||
-  'image/jpeg,image/png,image/webp,image/avif,image/jxl,image/qoi'
+  'image/jpeg,image/png,image/webp,image/avif,image/jxl,image/qoi,image/svg+xml,image/svg'
 )
   .split(',')
   .map((s) => s.trim())

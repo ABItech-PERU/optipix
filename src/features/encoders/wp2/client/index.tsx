@@ -156,7 +156,7 @@ export class Options extends Component<Props, State> {
     return (
       <form class={style.optionsSection} onSubmit={preventDefault}>
         <label class={style.optionToggle}>
-          Lossless
+          Sin pérdida
           <Checkbox
             checked={lossless}
             onChange={this._inputChange('lossless', 'boolean')}
@@ -172,7 +172,7 @@ export class Options extends Component<Props, State> {
                 value={slightLoss}
                 onInput={this._inputChange('slightLoss', 'number')}
               >
-                Slight loss:
+                Pérdida ligera:
               </Range>
             </div>
           )}
@@ -188,11 +188,11 @@ export class Options extends Component<Props, State> {
                   value={quality}
                   onInput={this._inputChange('quality', 'number')}
                 >
-                  Quality:
+                  Calidad:
                 </Range>
               </div>
               <label class={style.optionToggle}>
-                Separate alpha quality
+                Calidad alfa separada
                 <Checkbox
                   checked={separateAlpha}
                   onChange={this._inputChange('separateAlpha', 'boolean')}
@@ -208,7 +208,7 @@ export class Options extends Component<Props, State> {
                       value={alphaQuality}
                       onInput={this._inputChange('alphaQuality', 'number')}
                     >
-                      Alpha Quality:
+                      Calidad alfa:
                     </Range>
                   </div>
                 )}
@@ -218,7 +218,7 @@ export class Options extends Component<Props, State> {
                   checked={showAdvanced}
                   onChange={linkState(this, 'showAdvanced')}
                 />
-                Advanced settings
+                Configuración avanzada
               </label>
               <Expander>
                 {showAdvanced && (
@@ -231,7 +231,7 @@ export class Options extends Component<Props, State> {
                         value={passes}
                         onInput={this._inputChange('passes', 'number')}
                       >
-                        Passes:
+                        Pasadas:
                       </Range>
                     </div>
                     <div class={style.optionOneCell}>
@@ -242,7 +242,7 @@ export class Options extends Component<Props, State> {
                         value={sns}
                         onInput={this._inputChange('sns', 'number')}
                       >
-                        Spatial noise shaping:
+                        Modelado de ruido espacial:
                       </Range>
                     </div>
                     <div class={style.optionOneCell}>
@@ -253,23 +253,23 @@ export class Options extends Component<Props, State> {
                         value={errorDiffusion}
                         onInput={this._inputChange('errorDiffusion', 'number')}
                       >
-                        Error diffusion:
+                        Difusión de error:
                       </Range>
                     </div>
                     <label class={style.optionTextFirst}>
-                      Subsample chroma:
+                      Submuestreo de croma:
                       <Select
                         value={uvMode}
                         onInput={this._inputChange('uvMode', 'number')}
                       >
                         <option value={UVMode.UVModeAuto}>Auto</option>
-                        <option value={UVMode.UVModeAdapt}>Vary</option>
-                        <option value={UVMode.UVMode420}>Half</option>
-                        <option value={UVMode.UVMode444}>Off</option>
+                        <option value={UVMode.UVModeAdapt}>Variar</option>
+                        <option value={UVMode.UVMode420}>Mitad</option>
+                        <option value={UVMode.UVMode444}>Apagado</option>
                       </Select>
                     </label>
                     <label class={style.optionTextFirst}>
-                      Color space:
+                      Espacio de color:
                       <Select
                         value={colorSpace}
                         onInput={this._inputChange('colorSpace', 'number')}
@@ -280,7 +280,7 @@ export class Options extends Component<Props, State> {
                       </Select>
                     </label>
                     <label class={style.optionToggle}>
-                      Random matrix
+                      Matriz aleatoria
                       <Checkbox
                         checked={useRandomMatrix}
                         onChange={this._inputChange(
@@ -303,7 +303,7 @@ export class Options extends Component<Props, State> {
             value={effort}
             onInput={this._inputChange('effort', 'number')}
           >
-            Effort:
+            Esfuerzo:
           </Range>
         </div>
       </form>
