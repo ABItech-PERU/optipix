@@ -1,4 +1,4 @@
-# OptiPix
+# [OptiPix](https://optipix.abitech.com.pe)
 
 **Imágenes ligeras** - Optimizá tus pixels al instante.
 
@@ -63,5 +63,7 @@ OptiPix es un proyecto de código abierto que aprecia toda la participación de 
 Este proyecto está licenciado bajo la Licencia Apache 2.0 - consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 Basado en el proyecto original [Squoosh](https://github.com/GoogleChromeLabs/squoosh) de Google Chrome Labs.
+
+> Desarrollado por [Abimael Fernandez](https://github.com/abitech-dev). ¡Optimiza tus imágenes y disfruta la tecnología!
 
 [optipix]: https://optipix.abitech.com.pe

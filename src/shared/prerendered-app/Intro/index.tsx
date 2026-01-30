@@ -533,6 +533,7 @@ export default class Intro extends Component<Props, State> {
             <div class={style.footerPadding}>
               <footer class={style.footerItems}>
                 <a
+                  target="_blank"
                   class={style.footerLink}
                   href="https://github.com/abitech-peru/optipix/blob/main/README.md#privacy"
                 >
@@ -541,6 +542,7 @@ export default class Intro extends Component<Props, State> {
                 <a
                   class={style.footerLinkWithLogo}
                   href="https://github.com/abitech-peru/optipix"
+                  target="_blank"
                 >
                   <img src={githubLogo} alt="" width="10" height="10" />
                   Ver en Github
