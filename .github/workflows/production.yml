@@ -14,6 +14,7 @@ jobs:
           username: ${{ secrets.PRD_SSH_USER }}
           key: ${{ secrets.PRD_SSH_KEY }}
           script: |
+            source ~/.bashrc
             php -v
             cd htdocs/optipix.abitech.com.pe
             git reset --hard HEAD
