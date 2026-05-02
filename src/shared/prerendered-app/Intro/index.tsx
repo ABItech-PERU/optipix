@@ -532,13 +532,17 @@ export default class Intro extends Component<Props, State> {
             </svg>
             <div class={style.footerPadding}>
               <footer class={style.footerItems}>
-                <a
-                  target="_blank"
-                  class={style.footerLink}
-                  href="https://github.com/abitech-peru/optipix/blob/main/README.md#privacy"
-                >
-                  Privacidad
-                </a>
+                <div class={style.footerBrand}>
+                  <span class={style.footerBrandLabel}>Desarrollado por</span>
+                  <a
+                    href="https://abitech.com.pe"
+                    target="_blank"
+                    class={style.footerBrandLink}
+                  >
+                    <span class={style.footerBrandAbi}>ABI</span>
+                    <span class={style.footerBrandTech}>tech</span> PERÚ
+                  </a>
+                </div>
                 <a
                   class={style.footerLinkWithLogo}
                   href="https://github.com/abitech-peru/optipix"

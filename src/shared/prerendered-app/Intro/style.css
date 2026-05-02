@@ -181,7 +181,8 @@
 
 /* Colores específicos para cada característica */
 .info:nth-child(1) .info-title {
-  color: var(--blue); /* Azul para Pequeño */
+  color: var(--blue);
+  /* Azul para Pequeño */
 }
 
 .info:nth-child(1) {
@@ -189,7 +190,8 @@
 }
 
 .info:nth-child(2) .info-title {
-  color: var(--blue); /* Azul para Sencillo */
+  color: var(--blue);
+  /* Azul para Sencillo */
 }
 
 .info:nth-child(2) {
@@ -197,7 +199,8 @@
 }
 
 .info:nth-child(3) .info-title {
-  color: var(--blue); /* Azul para Seguro */
+  color: var(--blue);
+  /* Azul para Seguro */
 }
 
 .info:nth-child(3) {
@@ -205,7 +208,8 @@
 }
 
 .info:nth-child(4) .info-title {
-  color: var(--blue); /* Azul para Imágenes múltiples */
+  color: var(--blue);
+  /* Azul para Imágenes múltiples */
 }
 
 .info:nth-child(4) {
@@ -224,6 +228,7 @@
   color: var(--off-black);
   transition: color 400ms ease-in-out;
   margin-top: 1em;
+
   &:hover {
     color: var(--dim-blue);
   }
@@ -238,6 +243,7 @@
 
   @media (min-width: 712px) {
     justify-self: start;
+
     .info:nth-child(even) & {
       text-align: right;
       justify-self: end;
@@ -292,18 +298,46 @@
 }
 
 .footer-items {
-  display: grid;
-
-  grid-auto-rows: max-content;
-  justify-items: center;
-  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 4rem;
 
   @media (min-width: 480px) {
-    justify-content: end;
-    grid-auto-flow: column;
-    align-items: center;
-    gap: 4rem;
+    justify-content: flex-end;
   }
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.footer-brand-label {
+  color: var(--dim-text);
+}
+
+.footer-brand-link {
+  color: #a6a6a6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.footer-brand-abi {
+  color: #cea432;
+}
+
+.footer-brand-tech {
+  color: #1c6ccd;
 }
 
 .footer-link {
@@ -367,13 +401,14 @@
     gap: 6rem;
   }
 
-  & > li {
+  &>li {
     display: block;
   }
 }
 
 .demo-container {
   transition: scale 400ms ease-in-out;
+
   &:hover {
     scale: 1.05;
   }
@@ -393,11 +428,13 @@
   position: relative;
   overflow: hidden;
 }
+
 .demo-icon {
   width: var(--demo-size);
   height: var(--demo-size);
   display: block;
 }
+
 .demo-loader {
   composes: abs-fill from global;
   background: rgba(0, 0, 0, 0.5);
@@ -406,7 +443,7 @@
   align-content: center;
   animation: fade-in 600ms ease-in-out;
 
-  & > loading-spinner {
+  &>loading-spinner {
     --color: var(--white);
   }
 }
