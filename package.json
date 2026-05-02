@@ -8,7 +8,7 @@
     "debug": "node --inspect-brk node_modules/.bin/rollup -c",
     "dev": "run-p watch serve",
     "watch": "rollup -cw",
-    "serve": "serve --listen=5000 --config ../../../serve.json .tmp/build/static",
+    "serve": "serve --listen=3001 --config ../../../serve.json .tmp/build/static",
     "prepare": "husky install"
   },
   "devDependencies": {
