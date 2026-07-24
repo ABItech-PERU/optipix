@@ -146,7 +146,31 @@ export async function builtinDecode(
     signal,
     'createImageBitmap' in self ? createImageBitmap(blob) : blobToImg(blob),
   );
-  return drawableToImageData(drawable);
+  const MAX_PIXELS = 4096 * 4096; // Límite seguro: 16.7 Megapíxeles
+  let width = drawable.width;
+  let height = drawable.height;
+  const totalPixels = width * height;
+
+  if (totalPixels > MAX_PIXELS) {
+    const ratio = Math.sqrt(MAX_PIXELS / totalPixels);
+    width = Math.floor(width * ratio);
+    height = Math.floor(height * ratio);
+    
+    // Si tenemos soporte nativo, optimizamos el re-escalado fuera del hilo principal
+    if ('createImageBitmap' in self) {
+       try {
+         const resized = await createImageBitmap(drawable, { resizeWidth: width, resizeHeight: height, resizeQuality: 'high' });
+         if ('close' in drawable && typeof (drawable as any).close === 'function') {
+           (drawable as any).close();
+         }
+         return drawableToImageData(resized, { width, height, sw: width, sh: height });
+       } catch(e) {
+         // fallback si createImageBitmap rechaza redimensionar el bitmap original
+       }
+    }
+  }
+
+  return drawableToImageData(drawable, { width, height, sw: drawable.width, sh: drawable.height });
 }
 
 /**
