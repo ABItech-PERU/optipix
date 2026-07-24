@@ -5,6 +5,7 @@ import { h, Component } from 'preact';
 import * as style from './style.css';
 import 'add-css:./style.css';
 import { formatBytes, calculateSavings } from '../utils';
+import Thumbnail from './Thumbnail';
 
 export interface ProcessedFile {
   originalFile: File;
@@ -32,7 +33,6 @@ export default class FileList extends Component<Props> {
             : null;
           const ext =
             file.originalFile.name.split('.').pop()?.toUpperCase() || '';
-          const thumbUrl = URL.createObjectURL(file.originalFile);
           const statusClass =
             file.status === 'pending'
               ? style.statusPending
@@ -74,17 +74,10 @@ export default class FileList extends Component<Props> {
               <div class={style.fileMain}>
                 <div class={style.leftGroup}>
                   <div class={style.thumbWrap}>
-                    <img
-                      src={thumbUrl}
+                    <Thumbnail
+                      file={file.originalFile}
                       alt={file.originalFile.name}
                       class={style.thumb}
-                      onLoad={() => {
-                        try {
-                          URL.revokeObjectURL(thumbUrl);
-                        } catch (e) {
-                          /* ignore */
-                        }
-                      }}
                     />
                   </div>
 
