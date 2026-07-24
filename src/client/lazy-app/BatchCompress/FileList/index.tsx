@@ -21,10 +21,11 @@ export interface ProcessedFile {
 interface Props {
   files: ProcessedFile[];
   onRetry: (index: number) => void;
+  onRemove?: (index: number) => void;
 }
 
 export default class FileList extends Component<Props> {
-  render({ files, onRetry }: Props) {
+  render({ files, onRetry, onRemove }: Props) {
     return (
       <div class={style.fileList}>
         {files.map((file, idx) => {
@@ -112,10 +113,16 @@ export default class FileList extends Component<Props> {
                       </div>
                     ) : (
                       <div class={`${style.statusSmall} ${statusClass}`}>
+                        {file.status === 'processing' && (
+                          <svg class={style.spinner} viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                            <path d="M12 2a10 10 0 0 1 10 10"></path>
+                          </svg>
+                        )}
                         {file.status === 'pending'
                           ? 'Pendiente'
                           : file.status === 'processing'
-                          ? 'Optimizando'
+                          ? 'Optimizando...'
                           : file.status === 'error'
                           ? 'Error'
                           : '—'}
@@ -124,6 +131,19 @@ export default class FileList extends Component<Props> {
                   </div>
 
                   <div class={style.fileActions}>
+                    {onRemove && file.status !== 'processing' && (
+                      <button
+                        class={style.removeButton}
+                        onClick={() => onRemove(idx)}
+                        title="Eliminar"
+                      >
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    )}
+
                     {file.status === 'error' && (
                       <button
                         class={style.retryButton}

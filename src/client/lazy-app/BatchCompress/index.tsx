@@ -12,6 +12,7 @@ import {
   abortable,
   assertSignal,
   builtinDecode,
+  copyExif,
 } from '../util';
 import { validateFile } from 'shared/fileValidation';
 import {
@@ -152,7 +153,7 @@ export default class BatchCompress extends Component<Props, State> {
     signal: AbortSignal,
     imageData: ImageData,
     encoderState: EncoderState,
-    filename: string,
+    originalFile: File,
   ): Promise<{ blob: Blob; filename: string }> => {
     const encoder = encoderMap[encoderState.type];
 
@@ -178,7 +179,12 @@ export default class BatchCompress extends Component<Props, State> {
 
     // Generar nuevo nombre de archivo
     const extension = encoder.meta.extension;
-    const newFilename = filename.replace(/\.[^.]+$/, '') + '.' + extension;
+    const newFilename = originalFile.name.replace(/\.[^.]+$/, '') + '.' + extension;
+
+    // Preservar metadatos originales si el destino es JPEG
+    if (extension === 'jpg') {
+      blob = await copyExif(originalFile, blob);
+    }
 
     return { blob, filename: newFilename };
   };
@@ -248,7 +254,7 @@ export default class BatchCompress extends Component<Props, State> {
           this.abortController.signal,
           imageData,
           encoderState,
-          fileInfo.originalFile.name,
+          fileInfo.originalFile,
         );
 
         const downloadUrl = URL.createObjectURL(blob);
@@ -338,7 +344,7 @@ export default class BatchCompress extends Component<Props, State> {
         this.abortController.signal,
         imageData,
         encoderState,
-        fileInfo.originalFile.name,
+        fileInfo.originalFile,
       );
 
       const downloadUrl = URL.createObjectURL(blob);
@@ -384,6 +390,18 @@ export default class BatchCompress extends Component<Props, State> {
         `Error optimizando ${fileInfo.originalFile.name}: ${errorMessage}`,
       );
     }
+  };
+
+  private removeFile = (index: number) => {
+    this.setState((state) => {
+      const file = state.processedFiles[index];
+      if (file && file.downloadUrl) {
+        URL.revokeObjectURL(file.downloadUrl);
+      }
+      return {
+        processedFiles: state.processedFiles.filter((_, idx) => idx !== index),
+      };
+    });
   };
 
   private downloadAll = async () => {
@@ -541,7 +559,11 @@ export default class BatchCompress extends Component<Props, State> {
           totalCompressedSize={totalCompressedSize}
         />
 
-        <FileList files={processedFiles} onRetry={this.retryFile} />
+        <FileList 
+          files={processedFiles} 
+          onRetry={this.retryFile} 
+          onRemove={this.removeFile} 
+        />
       </div>
     );
 

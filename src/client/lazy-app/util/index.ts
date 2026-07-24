@@ -315,3 +315,73 @@ export async function abortable<T>(
     }),
   ]);
 }
+
+/**
+ * Copia de forma nativa los metadatos EXIF (APP1) de una imagen original
+ * hacia la nueva imagen comprimida para evitar perder información (GPS, Fecha, Cámara).
+ */
+export async function copyExif(originalBlob: Blob, newBlob: Blob): Promise<Blob> {
+  // Solo soportado para JPEG
+  if (originalBlob.type !== 'image/jpeg' || newBlob.type !== 'image/jpeg') {
+    return newBlob;
+  }
+
+  const origBuffer = await blobToArrayBuffer(originalBlob);
+  const newBuffer = await blobToArrayBuffer(newBlob);
+
+  const origView = new DataView(origBuffer);
+  const newView = new DataView(newBuffer);
+
+  if (origView.getUint16(0) !== 0xFFD8 || newView.getUint16(0) !== 0xFFD8) {
+    return newBlob; // No son JPEGs válidos
+  }
+
+  let exifSegment: Uint8Array | null = null;
+  let offset = 2;
+
+  // Buscar bloque APP1 (EXIF) en el archivo original
+  while (offset + 4 < origView.byteLength) {
+    const marker = origView.getUint16(offset);
+    if ((marker & 0xFF00) !== 0xFF00) break;
+    if (marker === 0xFFDA) break; // Inicio de imagen (Start Of Scan)
+
+    const length = origView.getUint16(offset + 2);
+    if (offset + length + 2 > origView.byteLength) break;
+
+    if (marker === 0xFFE1) {
+      if (origView.getUint32(offset + 4) === 0x45786966) { // 'Exif'
+        exifSegment = new Uint8Array(origBuffer, offset, length + 2);
+        break;
+      }
+    }
+    offset += length + 2;
+  }
+
+  if (!exifSegment) return newBlob; // No hay metadatos
+
+  // Buscar dónde inyectarlo en el archivo nuevo
+  let insertOffset = 2;
+  let newOffset = 2;
+  while (newOffset + 4 < newView.byteLength) {
+    const marker = newView.getUint16(newOffset);
+    if ((marker & 0xFF00) !== 0xFF00) break;
+    if (marker === 0xFFDA) break;
+
+    const length = newView.getUint16(newOffset + 2);
+    if (marker === 0xFFE0) {
+      // Insertar después de APP0 (JFIF)
+      insertOffset = newOffset + length + 2;
+      break;
+    }
+    if (marker !== 0xFFE1) {
+      insertOffset = newOffset;
+      break;
+    }
+    newOffset += length + 2;
+  }
+
+  const beforeInsert = new Uint8Array(newBuffer, 0, insertOffset);
+  const afterInsert = new Uint8Array(newBuffer, insertOffset);
+
+  return new Blob([beforeInsert as any, exifSegment as any, afterInsert as any], { type: 'image/jpeg' });
+}
