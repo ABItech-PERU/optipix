@@ -1,5 +1,41 @@
 import { h, Component } from 'preact';
 
+class TaskQueue {
+  private queue: (() => Promise<void>)[] = [];
+  private active = 0;
+  
+  constructor(private concurrency: number) {}
+
+  add(task: () => Promise<void>) {
+    return new Promise<void>((resolve, reject) => {
+      this.queue.push(async () => {
+        try {
+          await task();
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+      this.next();
+    });
+  }
+
+  private next() {
+    if (this.active >= this.concurrency || this.queue.length === 0) return;
+    const task = this.queue.shift();
+    if (task) {
+      this.active++;
+      task().finally(() => {
+        this.active--;
+        this.next();
+      });
+    }
+  }
+}
+
+// Límite de 3 decodificaciones pesadas concurrentes
+const thumbnailQueue = new TaskQueue(3);
+
 interface Props {
   file: File;
   alt?: string;
@@ -19,7 +55,7 @@ export default class Thumbnail extends Component<Props, State> {
 
   async componentDidMount() {
     this.isMounted = true;
-    await this.generateThumbnail(this.props.file);
+    await thumbnailQueue.add(() => this.generateThumbnail(this.props.file));
   }
 
   componentWillUnmount() {
@@ -35,7 +71,7 @@ export default class Thumbnail extends Component<Props, State> {
         URL.revokeObjectURL(this.state.thumbUrl);
       }
       this.setState({ thumbUrl: null });
-      await this.generateThumbnail(this.props.file);
+      await thumbnailQueue.add(() => this.generateThumbnail(this.props.file));
     }
   }
 
