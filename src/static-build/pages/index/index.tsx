@@ -76,6 +76,16 @@ const Index: FunctionalComponent<Props> = () => (
           __html: escapeStyleScriptContent(initialCss),
         }}
       />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: escapeStyleScriptContent(
+            `window.__env = ${JSON.stringify({
+              MAX_UPLOAD_BYTES: process.env.MAX_UPLOAD_BYTES,
+              ALLOWED_UPLOAD_MIMES: process.env.ALLOWED_UPLOAD_MIMES,
+            })};`
+          ),
+        }}
+      />
     </head>
     <body>
       <div id="app">
