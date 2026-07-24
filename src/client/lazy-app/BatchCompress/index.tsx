@@ -398,42 +398,62 @@ export default class BatchCompress extends Component<Props, State> {
     }
 
     try {
-      const zipData: { [key: string]: Uint8Array } = {};
+      this.props.showSnack(
+        `Preparando descarga de ${completedFiles.length} imágenes...`,
+      );
 
-      // Convertir cada blob a Uint8Array
-      for (const file of completedFiles) {
-        if (file.compressedBlob && file.downloadFilename) {
-          const arrayBuffer = await file.compressedBlob.arrayBuffer();
-          zipData[file.downloadFilename] = new Uint8Array(arrayBuffer);
-        }
+      // Bloques de 50 máximo para evitar colapsar la RAM
+      const CHUNK_SIZE = 50;
+      const chunks = [];
+      for (let i = 0; i < completedFiles.length; i += CHUNK_SIZE) {
+        chunks.push(completedFiles.slice(i, i + CHUNK_SIZE));
       }
 
-      // Crear el ZIP
-      const zipBuffer = zipSync(zipData);
+      for (let i = 0; i < chunks.length; i++) {
+        const chunk = chunks[i];
+        const zipData: { [key: string]: Uint8Array } = {};
 
-      // Crear blob del ZIP
-      const zipBlob = new Blob([new Uint8Array(zipBuffer)], {
-        type: 'application/zip',
-      });
+        // Convertir cada blob a Uint8Array
+        for (const file of chunk) {
+          if (file.compressedBlob && file.downloadFilename) {
+            const arrayBuffer = await file.compressedBlob.arrayBuffer();
+            zipData[file.downloadFilename] = new Uint8Array(arrayBuffer);
+          }
+        }
 
-      // Crear URL para descarga
-      const zipUrl = URL.createObjectURL(zipBlob);
+        // Crear el ZIP del bloque
+        const zipBuffer = zipSync(zipData);
 
-      // Crear enlace de descarga
-      const a = document.createElement('a');
-      a.href = zipUrl;
-      a.download = `abipress-${new Date().toISOString().split('T')[0]}.zip`;
-      a.click();
+        // Crear blob del ZIP
+        const zipBlob = new Blob([new Uint8Array(zipBuffer)], {
+          type: 'application/zip',
+        });
 
-      // Liberar URL
-      URL.revokeObjectURL(zipUrl);
+        // Crear URL para descarga
+        const zipUrl = URL.createObjectURL(zipBlob);
+
+        // Crear enlace de descarga
+        const a = document.createElement('a');
+        a.href = zipUrl;
+        
+        // Añadir sufijo de parte si hay más de 1 bloque
+        const partSuffix = chunks.length > 1 ? `-parte${i + 1}` : '';
+        a.download = `optipix-${new Date().toISOString().split('T')[0]}${partSuffix}.zip`;
+        a.click();
+
+        // Pausa breve para que el navegador gestione descargas múltiples sin bloquear
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        // Liberar URL de memoria
+        URL.revokeObjectURL(zipUrl);
+      }
 
       this.props.showSnack(
-        `Descargando ${completedFiles.length} imágenes en ZIP`,
-        { timeout: 3000 },
+        `Descarga completada en ${chunks.length} archivo(s) ZIP`,
+        { timeout: 4000 },
       );
     } catch (error) {
-      this.props.showSnack('Error al crear archivo ZIP');
+      this.props.showSnack('Error al crear archivos ZIP');
       console.error('Error en downloadAll:', error);
     }
   };
