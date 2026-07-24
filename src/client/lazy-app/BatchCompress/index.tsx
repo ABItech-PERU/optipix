@@ -244,6 +244,10 @@ export default class BatchCompress extends Component<Props, State> {
         ),
       }));
 
+      // Dar tiempo al navegador (50ms) para renderizar el estado 'Optimizando...' 
+      // antes de que getImageData (bloqueante) congele el hilo principal.
+      await new Promise((r) => setTimeout(r, 50));
+
       try {
         const imageData = await this.decodeImage(
           this.abortController.signal,
